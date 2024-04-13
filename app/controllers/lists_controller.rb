@@ -27,14 +27,16 @@ class ListsController < ApplicationController
     list.destroy  # データ（レコード）を削除
     redirect_to '/lists'  # 投稿一覧画面へリダイレクト
   end
-  
+
   def create
     @list = List.new(list_params)
     if @list.save
+      flash[:notice] = "投稿に成功しました。"
       redirect_to list_path(@list.id)
     else
+      flash.now[:alert] = "投稿に失敗しました。"
       render :new
-    end  
+    end
   end
 
   private
